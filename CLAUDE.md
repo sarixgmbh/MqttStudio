@@ -52,6 +52,7 @@ dart run build_runner build --delete-conflicting-outputs   # regenerate *.g.dart
 flutter build windows
 flutter build web
 powershell -ExecutionPolicy Bypass -File windows\packaging\create_msix.ps1   # Store MSIX package (settings in pubspec.yaml msix_config) plus the "mqttstudio" command line alias; use it instead of msix:create
+sh macos/packaging/create_dmg.sh   # notarized build/macos/dist/MQTT-Studio-<version>.dmg (Developer ID of Sarix Srl, notarytool profile mqttstudio-notary); on a Mac only
 build\windows\x64\runner\Release\mqttstudio-cli.exe --help  # headless CLI after flutter build windows
 ```
 

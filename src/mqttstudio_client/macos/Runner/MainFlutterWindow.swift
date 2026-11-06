@@ -27,6 +27,8 @@ class MainFlutterWindow: NSWindow {
       // no window, Dock icon or menu bar; the nib leaves the window hidden and state restoration must not show it
       NSApp.setActivationPolicy(.prohibited)
       self.isRestorable = false
+      // the view controller only starts the engine when its view appears, which the hidden window never does
+      flutterViewController.engine.run(withEntrypoint: nil)
       return
     }
     // the size and position of the last session, else Full HD (the layout is made for a wide window) or the whole
