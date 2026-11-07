@@ -1,10 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mqttstudio/common/localstore.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BrowserPerformanceWarning extends StatefulWidget {
+  // the website keeps the latest version under this name
+  static const String macDownloadUrl = 'https://www.mqttstudio.com/downloads/MQTT-Studio.dmg.zip';
+  static const String microsoftStoreUrl = 'https://www.microsoft.com/store/apps/9N3BV5PG4JTG';
+
   const BrowserPerformanceWarning({Key? key}) : super(key: key);
+
+  // the browser reports the user's OS: Macs get the macOS app, every other system the Microsoft Store
+  static String get downloadUrl =>
+      defaultTargetPlatform == TargetPlatform.macOS ? macDownloadUrl : microsoftStoreUrl;
 
   @override
   State<BrowserPerformanceWarning> createState() => _BrowserPerformanceWarningState();
@@ -72,7 +81,6 @@ class _BrowserPerformanceWarningState extends State<BrowserPerformanceWarning> {
   }
 
   _openDownloadPage() async {
-    final Uri url = Uri.parse('https://www.microsoft.com/store/apps/9N3BV5PG4JTG');
-    await launchUrl(url);
+    await launchUrl(Uri.parse(BrowserPerformanceWarning.downloadUrl));
   }
 }
