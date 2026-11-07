@@ -1,9 +1,15 @@
 import Cocoa
 import FlutterMacOS
+import Sparkle
 
 class MainFlutterWindow: NSWindow {
   // AppKit saves the frame under this name in the user defaults whenever the window moves or resizes
   private static let frameName = "MainWindow"
+
+  // Sparkle checks the appcast (SUFeedURL in Info.plist) once a day and installs updates; the app menu asks for a check
+  // through this channel (lib/common/app_updater.dart)
+  private static let updaterChannel = "eu.sarix.mqttstudio/updater"
+  private var updaterController: SPUStandardUpdaterController?
 
   // Started by the mqttstudio command (macos/packaging/mqttstudio): Dart runs the headless CLI and ends the process
   // with the exit code of the command (doc/cli-design.md).
@@ -31,6 +37,7 @@ class MainFlutterWindow: NSWindow {
       flutterViewController.engine.run(withEntrypoint: nil)
       return
     }
+    startUpdater(messenger: flutterViewController.engine.binaryMessenger)
     // the size and position of the last session, else Full HD (the layout is made for a wide window) or the whole
     // screen when it is smaller, centered
     if !self.setFrameUsingName(MainFlutterWindow.frameName) {
@@ -38,6 +45,20 @@ class MainFlutterWindow: NSWindow {
     }
     self.setFrameAutosaveName(MainFlutterWindow.frameName)
     self.makeKeyAndOrderFront(nil)
+  }
+
+  private func startUpdater(messenger: FlutterBinaryMessenger) {
+    let controller = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
+    updaterController = controller
+    FlutterMethodChannel(name: MainFlutterWindow.updaterChannel, binaryMessenger: messenger).setMethodCallHandler {
+      call, result in
+      if call.method == "checkForUpdates" {
+        controller.checkForUpdates(nil)
+        result(nil)
+      } else {
+        result(FlutterMethodNotImplemented)
+      }
+    }
   }
 
   private static func initialFrame(on screen: NSScreen?) -> NSRect {

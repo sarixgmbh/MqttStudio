@@ -539,6 +539,7 @@
     "navigator.projectsettings_menuitem": "Project Settings",
     "navigator.confirmsaving_message": "Project has not been saved! Save before closing?",
     "navigator.about_menuitem": "About MQTT Studio",
+    "appmenu.checkforupdates": "Check for Updates…",
     "appmenu.file": "File",
     "appmenu.newproject": "New Project…",
     "appmenu.openproject": "Open Project…",

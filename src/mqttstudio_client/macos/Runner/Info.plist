@@ -34,5 +34,11 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUFeedURL</key>
+	<string>https://www.mqttstudio.com/downloads/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>8Xy0tskhjntFjhG9oSqocxwFJR8UguFGiTJHUb3YJQs=</string>
 </dict>
 </plist>

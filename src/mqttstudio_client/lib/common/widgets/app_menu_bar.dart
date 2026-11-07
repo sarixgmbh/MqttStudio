@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mqttstudio/common/about_mqttstudio.dart';
+import 'package:mqttstudio/common/app_updater.dart';
 import 'package:mqttstudio/common/utils/shortcuts.dart';
 import 'package:mqttstudio/common/widgets/main_appbar.dart';
 import 'package:mqttstudio/project/project_commands.dart';
@@ -98,6 +99,7 @@ class AppMenuBar extends StatelessWidget {
     return PlatformMenu(label: 'MQTT Studio', menus: [
       PlatformMenuItemGroup(members: [
         PlatformMenuItem(label: 'navigator.about_menuitem'.tr(), onSelected: showAboutMqttStudio),
+        PlatformMenuItem(label: 'appmenu.checkforupdates'.tr(), onSelected: checkForUpdates),
       ]),
       PlatformMenuItemGroup(members: [PlatformProvidedMenuItem(type: PlatformProvidedMenuItemType.servicesSubmenu)]),
       PlatformMenuItemGroup(members: [
