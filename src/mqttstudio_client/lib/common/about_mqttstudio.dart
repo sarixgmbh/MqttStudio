@@ -5,6 +5,9 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:srx_flutter/srx_flutter.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
+// the address for bug reports, feature ideas and improvements
+const String feedbackEmail = 'mqttstudio@sarix.eu';
+
 // The about dialog of the navigation drawer and the macOS app menu
 Future showAboutMqttStudio() async {
   var info = await PackageInfo.fromPlatform();
@@ -22,6 +25,10 @@ Future showAboutMqttStudio() async {
         SizedBox(height: 16),
         SizedBox(width: 600, child: Text('aboutdialog.marketing_text'.tr(), style: Theme.of(context).textTheme.bodyMedium)),
         SizedBox(height: 16),
+        SizedBox(
+            width: 600,
+            child: Text('aboutdialog.feedback_text'.tr(args: [feedbackEmail]), style: Theme.of(context).textTheme.bodyMedium)),
+        SizedBox(height: 16),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,7 +38,7 @@ Future showAboutMqttStudio() async {
             SizedBox(width: 24),
             Icon(Icons.email, size: 20),
             SizedBox(width: 6),
-            _Link('info@sarix.eu', onTap: writeEmail),
+            _Link(feedbackEmail, onTap: writeEmail),
           ],
         )
       ]);
@@ -42,7 +49,7 @@ Future openWebsite() async {
 }
 
 Future writeEmail() async {
-  await UrlLauncherPlatform.instance.launchUrl('mailto://info@sarix.eu', LaunchOptions());
+  await UrlLauncherPlatform.instance.launchUrl('mailto:$feedbackEmail', LaunchOptions());
 }
 
 // a text that is underlined while the mouse is over it

@@ -562,6 +562,7 @@
     "appmenu.website": "MQTT Studio Website",
     "appmenu.email": "Email Sarix",
     "copyright_text": "Copyright (c) by Sarix",
+    "aboutdialog.feedback_text": "Found a bug, or have an idea for a new feature or an improvement? Let us know at {}.",
     "aboutdialog.marketing_text": "Unlock the full potential of MQTT development with MQTT Studio! Seamlessly manage, visualize, and optimize your IoT data flow. Empower developers with a user-friendly interface to build robust and efficient MQTT applications.",
     "browserperformancewarning.title": "Performance hint",
     "browserperformancewarning.hintmessage": "Performance of MQTT Studio in the browser is limited. If you need to receive and analyze a high number of messages, please download the desktop client.",
