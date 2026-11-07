@@ -1,9 +1,10 @@
 #!/bin/sh
-# Creates the notarized disk image build/macos/dist/MQTT-Studio-<version>.dmg for distribution outside the Mac App
+# Creates the notarized disk image build/macos/dist/MQTT-Studio.dmg for distribution outside the Mac App
 # Store. The Release build is signed with the Developer ID of Sarix Srl and the hardened runtime (Runner.xcodeproj).
 # The app is notarized and stapled before it goes into the image, so it also opens offline after it was copied out of
 # the image; then the image itself is signed, notarized and stapled. Last, the image is signed for the Sparkle updater
 # and build/macos/dist/appcast.xml is written; upload both to the folder of SUFeedURL in Info.plist (downloads below).
+# The names stay the same with every release, so invalidate the CDN cache of both after the upload.
 # Sparkle offers an update when the build number (the +n of the version in pubspec.yaml) is higher than the installed
 # one, so increase it with every release. macos/packaging/release_notes.html, if present, becomes the release notes.
 # Needs the "Developer ID Application: Sarix Srl" certificate in the keychain and the notarytool profile
@@ -21,7 +22,7 @@ build=$(sed -n 's/^version: *[^+]*+\([0-9]*\).*/\1/p' pubspec.yaml)
 downloads=https://www.mqttstudio.com/downloads
 app="build/macos/Build/Products/Release/MQTT Studio.app"
 dist=build/macos/dist
-dmg="$dist/MQTT-Studio-$version.dmg"
+dmg="$dist/MQTT-Studio.dmg"
 # Sparkle's tools come with the Swift package, the build resolves it
 sparkle=build/macos/SourcePackages/artifacts/sparkle/Sparkle/bin
 
@@ -94,7 +95,7 @@ cat > "$dist/appcast.xml" <<EOF
       <sparkle:version>$build</sparkle:version>
       <sparkle:shortVersionString>$version</sparkle:shortVersionString>
 $(if [ -f "$notes" ]; then printf '      <description><![CDATA[%s]]></description>' "$(cat "$notes")"; fi)
-      <enclosure url="$downloads/MQTT-Studio-$version.dmg" type="application/octet-stream" $enclosure/>
+      <enclosure url="$downloads/MQTT-Studio.dmg" type="application/octet-stream" $enclosure/>
     </item>
   </channel>
 </rss>
